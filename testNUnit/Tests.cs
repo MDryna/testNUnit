@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using testNUnit.PageObject;
 
 namespace testNUnit
 {
     class Tests : BaseTest
     {
-
+         
+         public static WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
         
         //LINQ перевірка перенаправлення на FE Course page
         [Test]
@@ -17,7 +21,6 @@ namespace testNUnit
         {
             this.BasePage.HomePageObject.ClickBtnCourses();
             this.BasePage.HomePageObject.RedirectingToCourses(TestSettings.courseFE);
-
         }
         
         
@@ -27,21 +30,21 @@ namespace testNUnit
         {
             this.BasePage.HomePageObject.ClickBtnCourses();
             this.BasePage.HomePageObject.RedirectingToCourses(TestSettings.courseQA);
-
         }
-
-        //перевірка що після логіну відкривається юрл кабінету користувача
+        
+        
         [Test]
         public void TestUrlAfterLogIn()
         {
             this.BasePage.HomePageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            Thread.Sleep(8000);
-            string currentUrl = this.BasePage.HomePageObject.OpenURL();
-            Thread.Sleep(5000);
-            
+            var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
+           string currentUrl = this.BasePage.HomePageObject.OpenURL();
+    
             Assert.That(currentUrl, Is.EqualTo("https://mate.academy/learn?course=all_courses"), "Failed test, url doesn't match with /mate.academy/learn?course=all_courses");
         }
+
+    
 
         //перевірка тайтла у веб вкладці особистого кабінету
         [Test]
@@ -49,23 +52,23 @@ namespace testNUnit
         {
             this.BasePage.HomePageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            Thread.Sleep(5000);
-            
+            var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             Assert.That(driver.Title, Is.EqualTo("Learn | Mate academy"));
         }
 
-        //перевірка тайтла із вейтом
+  
         [Test]
         public void TestLogOUT()
         {
             
             this.BasePage.HomePageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            this.BasePage.HomePageObject.ClickDropdownUserAccount();
-            Thread.Sleep(5000);
-            this.BasePage.HomePageObject.ClickLogOut();
+            var coursesUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
+            this.BasePage.HomePageObject.OpenDropdownOnHeader();
             Thread.Sleep(4000);
+            this.BasePage.HomePageObject.ClickLogOut();
             
+            var urlToBe = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/sign-in"));
             Assert.That(driver.Title, Is.EqualTo("Вхід в особистий кабінет студента | Mate academy"));
         }
 
@@ -75,10 +78,10 @@ namespace testNUnit
         {
             this.BasePage.HomePageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            Thread.Sleep(4000);
+            var coursesUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenSchedulePage();
-            Thread.Sleep(4000);
-
+            var scheduleUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/schedule"));
+    
             Assert.IsTrue(this.BasePage.SchedulePageObject.CheckScheduleTableDisplayed(), "Schedule Table is not displayed");
         }
 
@@ -97,11 +100,10 @@ namespace testNUnit
         {
             this.BasePage.HomePageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            Thread.Sleep(4000);
+            var coursesUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenSchedulePage();
-            Thread.Sleep(4000);
+            var scheduleUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/schedule"));
             this.BasePage.SchedulePageObject.OpenTimeDrop();
-            Thread.Sleep(2000);
             this.BasePage.SchedulePageObject.ClickDayOnDropdownTime();
             
             Assert.IsTrue(this.BasePage.SchedulePageObject.CheckDropdownOptionSelected(), "Failed test, option is not selected from time dropdown on the Schedule page");

@@ -13,13 +13,11 @@ namespace testNUnit.PageObject
     {
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
         private readonly BaseMap BaseMap = new BaseMap();
-
-        // метод кліку на _signInButton
+        
         public void SignInClick()
         {
             this.BaseMap.HomeMap._signInButton.Click();
         }
-
 
         // метод відображає current url
         public string OpenURL()
@@ -31,7 +29,7 @@ namespace testNUnit.PageObject
 
         public void OpenSchedulePage()
         {
-            WebElement element = (WebElement)wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnSchedule));
+            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnSchedule));
             element.Click();
         }
 
@@ -46,22 +44,12 @@ namespace testNUnit.PageObject
 
         }
 
-        public void ClickDropdownUserAccount()
-        {
+        public void OpenDropdownOnHeader() => BaseMap.HomeMap._dropdownUserAccount.Click();
+   
+        public void ClickLogOut() => BaseMap.HomeMap._btnLogOut.Click();
+     
 
-            WebElement dropdownUserAccount = (WebElement)wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._dropdownUserAccount));
-            dropdownUserAccount.Click();
-
-        }
-
-        public void ClickLogOut()
-        {
-
-            WebElement elementdropdownUserAccount = (WebElement)wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._dropdownUserAccount));
-            elementdropdownUserAccount.Click();
-            Thread.Sleep(100);
-            BaseMap.HomeMap._btnLogOut.Click();
-        }
+        
         //public void RedirectingViaSideBar(string title)
         //{
         //    SelectElement element = new SelectElement(_sidebar);

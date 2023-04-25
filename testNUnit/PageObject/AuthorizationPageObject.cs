@@ -20,7 +20,7 @@ namespace testNUnit.PageObject
             this.BaseMap.AuthorizationMap._loginInputEmail.SendKeys(login);
             this.BaseMap.AuthorizationMap._loginInputPassword.SendKeys(password);
      
-            WebElement submitLogIn = (WebElement)wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
+            IWebElement submitLogIn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
             submitLogIn.Click();
         }
         
@@ -30,7 +30,7 @@ namespace testNUnit.PageObject
 
             this.BaseMap.AuthorizationMap._loginInputEmail.SendKeys(randomEmail);
             this.BaseMap.AuthorizationMap._loginInputPassword.SendKeys(randomPassword);
-            WebElement submitLogIn = (WebElement)wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
+            IWebElement submitLogIn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
             submitLogIn.Click();
 
 

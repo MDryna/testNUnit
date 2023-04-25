@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using testNUnit.Map;
 using testNUnit.PageObject;
 
@@ -11,7 +12,7 @@ namespace testNUnit
         public static IWebDriver driver;
         protected BasePage BasePage;
         protected BaseMap BaseMap;
-
+        
         [OneTimeSetUp]
 
         protected void DoBeforeAllTheTests() //���������� ���� ��� ����� �������� �����
@@ -28,10 +29,9 @@ namespace testNUnit
         }
 
         [SetUp]
-        protected void DobeforeEach()//����������� ����� ������ ������
+        protected void DobeforeEach()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             driver.Manage().Cookies.DeleteAllCookies();//�������� ��� ���� ���� �������
             driver.Navigate().GoToUrl(TestSettings.HostUrl); //������� Ur�, �� ��������� � ���� TestSettings 
             driver.Manage().Window.Maximize();  //������� ��� ������� Chrome �� ���� ����� �������
