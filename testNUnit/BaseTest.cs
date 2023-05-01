@@ -12,6 +12,7 @@ namespace testNUnit
         public static IWebDriver driver;
         protected BasePage BasePage;
         protected BaseMap BaseMap;
+        public IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
         
         [OneTimeSetUp]
 
@@ -25,7 +26,7 @@ namespace testNUnit
         [OneTimeTearDown]
         public void DoAfterAllTheTests() //����������� ���� ��� ���� ��� �����
         {
-            driver.Quit();
+            //driver.Quit();
         }
 
         [SetUp]

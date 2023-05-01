@@ -65,7 +65,7 @@ namespace testNUnit
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
             var coursesUrl = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenDropdownOnHeader();
-            Thread.Sleep(4000);
+          
             this.BasePage.HomePageObject.ClickLogOut();
             
             var urlToBe = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/sign-in"));
@@ -109,6 +109,21 @@ namespace testNUnit
             Assert.IsTrue(this.BasePage.SchedulePageObject.CheckDropdownOptionSelected(), "Failed test, option is not selected from time dropdown on the Schedule page");
 
         }
+
+        [Test]
+        public void CheckLogoBlock()
+        {
+            this.BasePage.HomePageObject.ComppanysLogoBlock();
+            
+           Assert.IsTrue(BasePage.HomePageObject.ChecklogoBlock(), "Failed test, Logos block is not founded on the page.");
+        }
+
+        [Test]
+        public void CheckCarrouselReviews()
+        {
+            this.BasePage.HomePageObject.CarrouselReviews();
+        }
+
     }
 
 }
