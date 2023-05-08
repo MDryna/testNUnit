@@ -14,7 +14,12 @@ namespace testNUnit.PageObject
     {
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
         private readonly BaseMap BaseMap = new BaseMap();
-        
+
+        //конструктор
+        //public HomePageObject()
+        //{
+        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
+       // }
         
         public void SignInClick()
         {
@@ -69,27 +74,26 @@ namespace testNUnit.PageObject
             }
         }
         
-        public void CarrouselReviews()
+        public void ScrollToCarrousel()
         {
-            var carrouselReviews = js.ExecuteScript("arguments[0].scrollIntoView()", BaseMap.HomeMap._carrouselReviews);
-            this.BaseMap.HomeMap._btnAcceptCookies.Click();
-            //var carrouselClick = js.ExecuteScript("arguments[0].click();", BaseMap.HomeMap._carrouselReviews);
-            
-            //this.BaseMap.HomeMap._carrouselReviews.Click();
-          
-          
-            
+            var carrouselClick = js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HomeMap._carrouselReviews);
         }
 
+        public void ClickAcceptCookies()
+        {
+            var btnAcceptCookies = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnAcceptCookies));
+            btnAcceptCookies.Click();
+        }
+           
+        public void OpenDOUlink()
+        {
+          js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HomeMap._linkDOU);
+          var linkDOU  = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._linkDOU));
+          linkDOU.Click();
+        }
+
+
         //action.ScrollToElement(BaseMap.HomeMap._carrouselReviews).Perform();
-
-        //public void RedirectingViaSideBar(string title)
-        //{
-        //    SelectElement element = new SelectElement(_sidebar);
-        //    element.SelectByText(title);
-        //    _sidebar.Click();
-
-        //}
 
 
 
