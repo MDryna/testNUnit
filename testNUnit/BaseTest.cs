@@ -13,12 +13,13 @@ namespace testNUnit
         protected BasePage BasePage;
         protected BaseMap BaseMap;
         public IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-        
+       
+
         [OneTimeSetUp]
 
-        protected void DoBeforeAllTheTests() //���������� ���� ��� ����� �������� �����
+        protected void DoBeforeAllTheTests() 
         {
-            driver = new ChromeDriver();//���������� ����������
+            driver = new ChromeDriver();
 
         }
 
@@ -33,9 +34,9 @@ namespace testNUnit
         protected void DobeforeEach()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            driver.Manage().Cookies.DeleteAllCookies();//�������� ��� ���� ���� �������
-            driver.Navigate().GoToUrl(TestSettings.HostUrl); //������� Ur�, �� ��������� � ���� TestSettings 
-            driver.Manage().Window.Maximize();  //������� ��� ������� Chrome �� ���� ����� �������
+            driver.Manage().Cookies.DeleteAllCookies();
+            driver.Navigate().GoToUrl(TestSettings.HostUrl); 
+            driver.Manage().Window.Maximize();  
 
             this.BasePage = new BasePage();
             

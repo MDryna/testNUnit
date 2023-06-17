@@ -12,19 +12,18 @@ namespace testNUnit.PageObject
 {
     public class HomePageObject : BaseTest
     {
-        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-        private readonly BaseMap BaseMap = new BaseMap();
-
-        //конструктор
-        //public HomePageObject()
-        //{
-        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
-       // }
         
-        public void SignInClick()
+        private readonly BaseMap BaseMap = new BaseMap();
+        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+
+        //Constructor
+        public HomePageObject()
         {
-            this.BaseMap.HomeMap._signInButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "learn?course=all_courses"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._coursesGridOnHomePage));
         }
+
+        //public void waitElement(By by) => wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(by));
 
         // метод відображає current url
         public string OpenURL()
@@ -36,62 +35,35 @@ namespace testNUnit.PageObject
 
         public void OpenSchedulePage()
         {
-            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnSchedule));
-            element.Click();
+            IWebElement btnSchedule = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnSchedule));
+            btnSchedule.Click();
         }
 
 
-        public void ClickBtnCourses() => BaseMap.HomeMap._buttonCourses.Click();
 
-        //LINQ
-        public void RedirectingToCourses(string courseName)
+        public void OpenDropdownOnHeader()
         {
-            var courses = driver.FindElements(BaseMap.HomeMap._popperWithCourses).First(x => x.Text == courseName);
-            courses.Click();
-
+            IWebElement btnLogOut = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._dropdownUserAccount));
+            btnLogOut.Click();
         }
+          
 
-        public void OpenDropdownOnHeader() => BaseMap.HomeMap._dropdownUserAccount.Click();
-
-        public void ClickLogOut() => BaseMap.HomeMap._btnLogOut.Click();
-
-        //СКРОЛ
-        public void ComppanysLogoBlock()
+        public void ClickLogOut()
         {
-            string linkGoogle = (string)js.ExecuteScript("arguments[0].scrollIntoViewIfNeeded()", BaseMap.HomeMap._linkGoogle);
+            IWebElement btnLogOut = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnLogOut));
+            btnLogOut.Click();
         }
+            
 
-        public bool ChecklogoBlock()
-        {
-            try
-            {
-                bool logo =  BaseMap.HomeMap._logoBlock.Displayed;
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-        
-        public void ScrollToCarrousel()
-        {
-            var carrouselClick = js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HomeMap._carrouselReviews);
-        }
 
-        public void ClickAcceptCookies()
-        {
-            var btnAcceptCookies = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnAcceptCookies));
-            btnAcceptCookies.Click();
-        }
-           
-        public void OpenDOUlink()
-        {
-          js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HomeMap._linkDOU);
-          var linkDOU  = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._linkDOU));
-          linkDOU.Click();
-        }
-
+        //public void ClickProfileDropdown()
+        //{
+        //    this.BaseMap.HomeMap._btnProfileDropdown.Click();
+        //    var dropList = driver.FindElement(By.XPath("//ul[@class= 'ProfileDropdown_dropdownContent__JNDGI ProfileDropdown_dropdownOpened__3Lq7h']"));
+        //    var select = new SelectElement(dropList);
+            //     SelectElement element = new SelectElement(dropList);
+         //   select.SelectByText("Вийти");
+        //}
 
         //action.ScrollToElement(BaseMap.HomeMap._carrouselReviews).Perform();
 

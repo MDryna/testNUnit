@@ -13,5 +13,9 @@ namespace testNUnit.PageObject
         public AuthorizationPageObject AuthorizationPageObject => new AuthorizationPageObject();
         public HomePageObject HomePageObject => new HomePageObject();
         public SchedulePageObject SchedulePageObject => new SchedulePageObject();
+        public HostPageObject HostPageObject => new HostPageObject();
+        public FrontendPageObject FrontendPageObject => new FrontendPageObject();
+        public QaPageObject QaPageObject => new QaPageObject(); 
+
     }
 }

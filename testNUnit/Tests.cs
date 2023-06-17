@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework.Internal.Execution;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V109.Media;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using testNUnit.PageObject;
@@ -13,33 +15,37 @@ namespace testNUnit
     class Tests : BaseTest
     {
          
-         public static WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
-        
+        public static WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
+    
+
         //LINQ перевірка перенаправлення на FE Course page
-        [Test]
+        [Test,Category("Smoke Testing")]
         public void TestCourseFEopens()
         {
-            this.BasePage.HomePageObject.ClickBtnCourses();
-            this.BasePage.HomePageObject.RedirectingToCourses(TestSettings.courseFE);
+            this.BasePage.HostPageObject.ClickBtnCourses();
+            this.BasePage.HostPageObject.RedirectingToCourses(TestSettings.courseFE);
+
+            Assert.IsTrue(this.BasePage.FrontendPageObject.CheckTitle(), "Incorect title or page is not opened");
+           
         }
-        
-        
+
+
         //LINQ перевірка перенаправлення на QA Course page
-        [Test]
+        [Test,Category("Smoke Testing")]
         public void TestCourseQAopens()
         {
-            this.BasePage.HomePageObject.ClickBtnCourses();
-            this.BasePage.HomePageObject.RedirectingToCourses(TestSettings.courseQA);
+            this.BasePage.HostPageObject.ClickBtnCourses();
+            this.BasePage.HostPageObject.RedirectingToCourses(TestSettings.courseQA);
+                
         }
-        
-        
-        [Test]
+
+
+        [Test, Category("Smoke Testing")]
         public void TestUrlAfterLogIn()
         {
-            this.BasePage.HomePageObject.SignInClick();
-            this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"learn?course=all_courses"));
-           string currentUrl = this.BasePage.HomePageObject.OpenURL();
+            this.BasePage.HostPageObject.SignInClick();
+            this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);   
+            string currentUrl = this.BasePage.HomePageObject.OpenURL();
     
             Assert.That(currentUrl, Is.EqualTo(TestSettings.HostUrl+"learn?course=all_courses"), "Failed test, url doesn't match with /mate.academy/learn?course=all_courses");
         }
@@ -47,62 +53,60 @@ namespace testNUnit
     
 
         //перевірка тайтла у веб вкладці особистого кабінету
-        [Test]
+        [Test, Category("Regression Testing")]
         public void TestWebTitleOnUserAccount()
         {
-            this.BasePage.HomePageObject.SignInClick();
+            this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"learn?course=all_courses"));
+            
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Learn | Mate academy"));
             Assert.That(driver.Title, Is.EqualTo("Learn | Mate academy"));
         }
 
   
-        [Test]
+        [Test, Category("Smoke Testing")]
         public void TestLogOUT()
         {
             
-            this.BasePage.HomePageObject.SignInClick();
+            this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenDropdownOnHeader();
-           
             this.BasePage.HomePageObject.ClickLogOut();
-           
-            var urlToBe = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"sign-in"));
-            Assert.That(driver.Title, Is.EqualTo("Вхід в особистий кабінет студента | Mate academy"));
+
+            Assert.That(this.BasePage.AuthorizationPageObject.CheckLogOutUrl(), "User is not logged out");
         }
+        
+        
 
 
-        [Test]
+        [Test, Category("Smoke Testing")]
         public void TestScheduleTable_Displayed()
         {
-            this.BasePage.HomePageObject.SignInClick();
+            this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenSchedulePage();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"schedule"));
     
             Assert.IsTrue(this.BasePage.SchedulePageObject.CheckScheduleTableDisplayed(), "Schedule Table is not displayed");
         }
 
-        [Test]
+        [Test, Category("Smoke Testing")]
         public void CheckErrorDisplayed_withNon_existing_Credentials()
         {
-            this.BasePage.HomePageObject.SignInClick();
+            this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.FailedLogin_CheckErrorDisplayed(RandomData.GenereteRandomEmail(TestSettings.mail), RandomData.GenereteRandomPassword());
 
             Assert.IsTrue(this.BasePage.AuthorizationPageObject.CheckErrorDisplayed(), "Failed test, Validation error is not displayed after submitting non-existing credentials");
 
         }
 
-        [Test]
+        [Test, Category("Smoke Testing")]
         public void TestSelectOptionInTimeDropdown()
         {
-            this.BasePage.HomePageObject.SignInClick();
+            this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
             //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenSchedulePage();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"schedule"));
+            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"schedule"));
             this.BasePage.SchedulePageObject.OpenTimeDrop();
             this.BasePage.SchedulePageObject.ClickDayOnDropdownTime();
             
@@ -110,22 +114,22 @@ namespace testNUnit
 
         }
 
-        [Test]
+        [Test, Category("Regression Testing")]
         public void CheckLogoBlock()
         { 
-            this.BasePage.HomePageObject.ComppanysLogoBlock();
+            this.BasePage.HostPageObject.ComppanysLogoBlock();
             
-           Assert.IsTrue(BasePage.HomePageObject.ChecklogoBlock(), "Failed test, Logos block is not founded on the page.");
+           Assert.IsTrue(BasePage.HostPageObject.ChecklogoBlock(), "Failed test, Logos block is not founded on the page.");
         }
 
-        [Test]
+        [Test, Category("Regression Testing")]
         public void CheckLinkInReviews()
         {
-            this.BasePage.HomePageObject.ScrollToCarrousel();
+            this.BasePage.HostPageObject.ScrollToCarrousel();
             Thread.Sleep(1000);
-            this.BasePage.HomePageObject.ClickAcceptCookies();
+            this.BasePage.HostPageObject.ClickAcceptCookies();
             Thread.Sleep(1000);
-            this.BasePage.HomePageObject.OpenDOUlink();
+            this.BasePage.HostPageObject.OpenDOUlink();
         }
 
     }

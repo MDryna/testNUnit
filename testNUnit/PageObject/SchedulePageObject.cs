@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,16 @@ namespace testNUnit.PageObject
     public class SchedulePageObject : BaseTest
     {
         private readonly BaseMap BaseMap = new BaseMap();
+        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+
+
+
+        //Constructor
+        public SchedulePageObject()
+        {
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "schedule"));
+        }
 
         public bool CheckScheduleTableDisplayed()
         {

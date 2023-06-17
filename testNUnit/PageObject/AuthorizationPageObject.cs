@@ -12,18 +12,25 @@ namespace testNUnit.PageObject
     public class AuthorizationPageObject : BaseTest
     {
         private readonly BaseMap BaseMap = new BaseMap();
-        
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-        
+
+
+        //Constructor
+        public AuthorizationPageObject()
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "sign-in"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._loginInputEmail));
+        }
+
         public void Login(string login, string password)
         {
             this.BaseMap.AuthorizationMap._loginInputEmail.SendKeys(login);
             this.BaseMap.AuthorizationMap._loginInputPassword.SendKeys(password);
-     
+
             IWebElement submitLogIn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
             submitLogIn.Click();
         }
-        
+
 
         public void FailedLogin_CheckErrorDisplayed(string randomEmail, string randomPassword)
         {
@@ -50,7 +57,18 @@ namespace testNUnit.PageObject
             }
         }
 
+        public bool CheckLogOutUrl()
+        {
+            try
+            {
+                bool displayed = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "sign-in")); ;
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
 
-
+            }
+        }
     }
 }
