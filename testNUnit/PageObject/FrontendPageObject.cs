@@ -20,7 +20,6 @@ namespace testNUnit.PageObject
             
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "courses/frontend"));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.FrontendMap._lendingTextFE));
-            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy((By)BaseMap.FrontendMap._lendingTextFE));
 
         }
 

@@ -20,7 +20,7 @@ namespace testNUnit.PageObject
         {
         
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/"));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._messengersIcons));
+           // wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._messengersIcons));
         }
 
         public void SignInClick()
@@ -31,7 +31,7 @@ namespace testNUnit.PageObject
         public void ClickBtnCourses()
         {
             this.BaseMap.HostMap._buttonCourses.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(BaseMap.HostMap._popperWithCourses));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(BaseMap.HostMap._lastElementOnPopper));
         }
         
 
@@ -47,7 +47,7 @@ namespace testNUnit.PageObject
         //Scroll to element method
         public void ComppanysLogoBlock()
         {
-            string linkGoogle = (string)js.ExecuteScript("arguments[0].scrollIntoViewIfNeeded()", BaseMap.HostMap._linkGoogle);
+           js.ExecuteScript("arguments[0].scrollIntoViewIfNeeded()", BaseMap.HostMap._linkGoogle);
         }
 
         public bool ChecklogoBlock()
@@ -63,10 +63,16 @@ namespace testNUnit.PageObject
             }
         }
 
+        public void RefuseHelp()
+        {
+            var clickRefuseHelp = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._helpPopup));
+            clickRefuseHelp.Click();
+        }
         //Scroll to element method
         public void ScrollToCarrousel()
         {
-            var carrouselClick = js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._carrouselReviews);
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._carrouselReviews);
+         
         }
 
         public void ClickAcceptCookies()
@@ -75,13 +81,12 @@ namespace testNUnit.PageObject
             btnAcceptCookies.Click();
         }
 
+
         public void OpenDOUlink()
         {
-           
-           js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._linkDOU);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._linkDOU));
-        
-            this.BaseMap.HostMap._linkDOU.Click();
+            //js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._linkDOU);
+            var clickDou = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._linkDOU));
+            clickDou.Click();
         }
     }
 }

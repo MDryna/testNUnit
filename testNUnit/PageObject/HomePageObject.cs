@@ -23,7 +23,6 @@ namespace testNUnit.PageObject
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._coursesGridOnHomePage));
         }
 
-        //public void waitElement(By by) => wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(by));
 
         // метод відображає current url
         public string OpenURL()
@@ -50,6 +49,7 @@ namespace testNUnit.PageObject
 
         public void ClickLogOut()
         {
+
             IWebElement btnLogOut = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._btnLogOut));
             btnLogOut.Click();
         }

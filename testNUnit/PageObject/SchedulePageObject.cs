@@ -19,8 +19,8 @@ namespace testNUnit.PageObject
         //Constructor
         public SchedulePageObject()
         {
-
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "schedule"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.ScheduleMap._timegridIndicator));
         }
 
         public bool CheckScheduleTableDisplayed()

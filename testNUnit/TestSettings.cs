@@ -15,12 +15,12 @@ namespace testNUnit
         public const string password = "0105Maria!";
         public static string mail = "@gmail.com";
 
-        public static string courseFE { get; } = "Frontend";
-        public static string courseQA { get; } = "QA";
-        public static string courseFULL { get; } = "Fullstack";
-        public static string courseJava { get; } = "Java";
+        public static string courseFE { get; } = "Front-end developer";
+        public static string courseQA { get; } = "QA engineer";
+        public static string courseFULL { get; } = "Full-stack developer";
+        public static string courseJava { get; } = "Java developer";
         public static string courseUIUX { get; } = "UI/UX Design";
-        public static string coursePython { get; } = "Python";
+        public static string coursePython { get; } = "Python developer";
 
         public const int Wait_for_element_timeout = 40;
         

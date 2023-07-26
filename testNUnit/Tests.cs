@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework.Internal.Execution;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V109.Media;
+using OpenQA.Selenium.DevTools;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using testNUnit.PageObject;
@@ -104,9 +104,7 @@ namespace testNUnit
         {
             this.BasePage.HostPageObject.SignInClick();
             this.BasePage.AuthorizationPageObject.Login(TestSettings.login, TestSettings.password);
-            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/learn?course=all_courses"));
             this.BasePage.HomePageObject.OpenSchedulePage();
-            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl+"schedule"));
             this.BasePage.SchedulePageObject.OpenTimeDrop();
             this.BasePage.SchedulePageObject.ClickDayOnDropdownTime();
             
@@ -125,9 +123,11 @@ namespace testNUnit
         [Test, Category("Regression Testing")]
         public void CheckLinkInReviews()
         {
-            this.BasePage.HostPageObject.ScrollToCarrousel();
-            Thread.Sleep(1000);
+            //this.BasePage.HostPageObject.RefuseHelp();
+
             this.BasePage.HostPageObject.ClickAcceptCookies();
+            this.BasePage.HostPageObject.ScrollToCarrousel();
+    
             Thread.Sleep(1000);
             this.BasePage.HostPageObject.OpenDOUlink();
         }
