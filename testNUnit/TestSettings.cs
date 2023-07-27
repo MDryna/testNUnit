@@ -14,6 +14,7 @@ namespace testNUnit
         public const string login = "mm_dryna@ukr.net";
         public const string password = "0105Maria!";
         public static string mail = "@gmail.com";
+        
 
         public static string courseFE { get; } = "Front-end developer";
         public static string courseQA { get; } = "QA engineer";

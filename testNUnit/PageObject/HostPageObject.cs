@@ -31,17 +31,23 @@ namespace testNUnit.PageObject
         public void ClickBtnCourses()
         {
             this.BaseMap.HostMap._buttonCourses.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(BaseMap.HostMap._lastElementOnPopper));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._lastElementOnPopper));
         }
         
 
         //LINQ
         public void RedirectingToCourses(string courseName)
         {
-           
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(BaseMap.HostMap._popperWithCourses));
             var courses = driver.FindElements(BaseMap.HostMap._popperWithCourses).First(x => x.Text == courseName);
             courses.Click();
 
+        }
+
+        public void ClickQaOnPopper()
+        {
+            IWebElement btnQA = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._qaOptionOnPopper));
+            btnQA.Click();
         }
 
         //Scroll to element method
@@ -84,9 +90,43 @@ namespace testNUnit.PageObject
 
         public void OpenDOUlink()
         {
-            //js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._linkDOU);
-            var clickDou = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._linkDOU));
+            
+           wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._buttonLearnForFreeInHeader));
+          // js.ExecuteScript("arguments[0].scrollIntoView(true);", BaseMap.HostMap._linkDOU);
+           var clickDou = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._linkDOU));
             clickDou.Click();
+        }
+
+        public void ClickButtonChangeLocalization()
+        {
+           var changeLocalization = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._buttonChangeLocalization));
+            changeLocalization.Click();
+        }
+        //потрібно дописати
+        public void OpenCountryDropDown()
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._lastElementOnLocalizationPopup));
+            var openDropdown = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._dropdownCountry));
+            openDropdown.Click(); 
+        }
+
+        public void SelectEurope()
+        {
+            var selectEurope = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._europeOptionInDropdown));
+            selectEurope.Click();
+        }
+
+        public bool CheckEuropeIsSelected()
+        {
+            try
+            {
+                bool logo = BaseMap.HostMap._europeOptionSelected.Displayed;
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
     }
 }
