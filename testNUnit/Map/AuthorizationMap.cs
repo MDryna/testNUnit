@@ -4,9 +4,10 @@ namespace testNUnit.Map;
 
 public class AuthorizationMap : BaseTest
 {
-    public IWebElement _loginInputEmail => driver.FindElement(By.CssSelector("[type='email']"));
-    public  IWebElement _loginInputPassword => driver.FindElement(By.CssSelector("[type='password']"));
-    public  IWebElement _submitLogIn => driver.FindElement(By.CssSelector("[type='submit']"));
-    public  IWebElement _errormessage => driver.FindElement(By.CssSelector("[class='message-list']"));
+    public IWebElement _loginContainer => driver.FindElement(By.ClassName("FormStyleContainer_formWrapper__Kj3JV"));
+        public IWebElement _loginInputEmail => _loginContainer.FindElement(By.CssSelector("[type='email']"));
+        public  IWebElement _loginInputPassword => _loginContainer.FindElement(By.CssSelector("[type='password']"));
+        public  IWebElement _submitLogIn => _loginContainer.FindElement(By.CssSelector("[type='submit']"));
+    public  IWebElement _errormessage => driver.FindElement(By.ClassName("message-list"));
   
 }

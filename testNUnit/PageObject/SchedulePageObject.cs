@@ -15,7 +15,6 @@ namespace testNUnit.PageObject
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
 
 
-
         //Constructor
         public SchedulePageObject()
         {
@@ -51,7 +50,6 @@ namespace testNUnit.PageObject
                 return false;
             }
         }
-
 
 
     }

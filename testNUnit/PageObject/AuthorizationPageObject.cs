@@ -40,8 +40,6 @@ namespace testNUnit.PageObject
             IWebElement submitLogIn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.AuthorizationMap._submitLogIn));
             submitLogIn.Click();
 
-
-
         }
 
         public bool CheckErrorDisplayed()

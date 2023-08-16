@@ -15,7 +15,8 @@ namespace testNUnit.PageObject
         public SchedulePageObject SchedulePageObject => new SchedulePageObject();
         public HostPageObject HostPageObject => new HostPageObject();
         public FrontendPageObject FrontendPageObject => new FrontendPageObject();
-        public QaPageObject QaPageObject => new QaPageObject(); 
+        public QaPageObject QaPageObject => new QaPageObject();
+        public EnglishHostPageObject EnglishHostPageObject => new EnglishHostPageObject();
 
     }
 }

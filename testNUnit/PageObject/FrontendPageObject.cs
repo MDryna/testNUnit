@@ -17,10 +17,8 @@ namespace testNUnit.PageObject
         //Constructor
         public FrontendPageObject()
         {
-            
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "courses/frontend"));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.FrontendMap._lendingTextFE));
-
         }
 
         public bool CheckTitle()

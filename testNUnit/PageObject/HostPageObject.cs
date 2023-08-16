@@ -18,9 +18,8 @@ namespace testNUnit.PageObject
         //Constructor
         public HostPageObject()
         {
-        
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe("https://mate.academy/"));
-           // wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._messengersIcons));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._signInButton));
         }
 
         public void SignInClick()
@@ -31,9 +30,8 @@ namespace testNUnit.PageObject
         public void ClickBtnCourses()
         {
             this.BaseMap.HostMap._buttonCourses.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._lastElementOnPopper));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._lastElementPopper));
         }
-        
 
         //LINQ
         public void RedirectingToCourses(string courseName)
@@ -44,12 +42,12 @@ namespace testNUnit.PageObject
 
         }
 
-        public void ClickQaOnPopper()
+        //test with root selectors
+        public void ClickQa()
         {
-            IWebElement btnQA = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._qaOptionOnPopper));
+            IWebElement btnQA = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._qaOptionPopper));
             btnQA.Click();
         }
-
         //Scroll to element method
         public void ComppanysLogoBlock()
         {
@@ -60,7 +58,7 @@ namespace testNUnit.PageObject
         {
             try
             {
-                bool logo = BaseMap.HostMap._logoBlock.Displayed;
+                bool logo = BaseMap.HostMap._companiesBlock.Displayed;
                 return true;
             }
             catch (NoSuchElementException)
@@ -69,11 +67,7 @@ namespace testNUnit.PageObject
             }
         }
 
-        public void RefuseHelp()
-        {
-            var clickRefuseHelp = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._helpPopup));
-            clickRefuseHelp.Click();
-        }
+
         //Scroll to element method
         public void ScrollToCarrousel()
         {
@@ -116,17 +110,11 @@ namespace testNUnit.PageObject
             selectEurope.Click();
         }
 
-        public bool CheckEuropeIsSelected()
+        public void SubmitLocalization()
         {
-            try
-            {
-                bool logo = BaseMap.HostMap._europeOptionSelected.Displayed;
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+            var submit = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HostMap._btnSubmit));
+            submit.Click();
         }
+
     }
 }

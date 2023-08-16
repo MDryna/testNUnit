@@ -41,6 +41,7 @@ namespace testNUnit
             this.BasePage = new BasePage();
             
         }
+
         [TearDown]
         protected void DoAfterEach()  //����������� ���� ������� �����
         {

@@ -20,7 +20,7 @@ namespace testNUnit.PageObject
         public HomePageObject()
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(TestSettings.HostUrl + "learn?course=all_courses"));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._coursesGridOnHomePage));
+           // wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(BaseMap.HomeMap._coursesGridOnHomePage));
         }
 
 
@@ -54,19 +54,6 @@ namespace testNUnit.PageObject
             btnLogOut.Click();
         }
             
-
-
-        //public void ClickProfileDropdown()
-        //{
-        //    this.BaseMap.HomeMap._btnProfileDropdown.Click();
-        //    var dropList = driver.FindElement(By.XPath("//ul[@class= 'ProfileDropdown_dropdownContent__JNDGI ProfileDropdown_dropdownOpened__3Lq7h']"));
-        //    var select = new SelectElement(dropList);
-            //     SelectElement element = new SelectElement(dropList);
-         //   select.SelectByText("Вийти");
-        //}
-
-        //action.ScrollToElement(BaseMap.HomeMap._carrouselReviews).Perform();
-
 
 
     }

@@ -27,16 +27,14 @@ namespace testNUnit
             Assert.IsTrue(this.BasePage.FrontendPageObject.CheckTitle(), "Incorect title or page is not opened");
            
         }
-
-
-        [Test,Category("Smoke Testing")]
-        public void TestCourseQAopens()
+        //test with root selectors
+        [Test, Category("Smoke Testing")]
+        public void CourseQAopens()
         {
             this.BasePage.HostPageObject.ClickBtnCourses();
-            this.BasePage.HostPageObject.ClickQaOnPopper();
-                
+            this.BasePage.HostPageObject.ClickQa();
+            Assert.IsTrue(this.BasePage.QaPageObject.CheckTitle(), "Incorect title or page is not opened");
         }
-
 
         [Test, Category("Smoke Testing")]
         public void TestUrlAfterLogIn()
@@ -108,9 +106,10 @@ namespace testNUnit
             this.BasePage.HostPageObject.ClickButtonChangeLocalization();
             this.BasePage.HostPageObject.OpenCountryDropDown();
             this.BasePage.HostPageObject.SelectEurope();
-
-
-            Assert.IsTrue(this.BasePage.HostPageObject.CheckEuropeIsSelected(), "User is not logged out");
+            this.BasePage.HostPageObject.SubmitLocalization();
+            string currentUrl = this.BasePage.EnglishHostPageObject.OpenURL();
+            Assert.That(currentUrl, Is.EqualTo(TestSettings.HostUrl + "en-eu"), "Failed test, url doesn't match with /en-eu, Localization is not changed");
+          
         }
 
         [Test, Category("Regression Testing")]
